@@ -5,14 +5,19 @@ import { Navigation } from '@/components/Navigation';
 import { Dashboard } from '@/components/Dashboard';
 import { SalesForm } from '@/components/SalesForm';
 import { InventoryManager } from '@/components/InventoryManager';
-import { Product, Sale } from '@/types';
+import { Product, Sale, Expense } from '@/types';
+import { ExpenseManager } from '@/components/ExpenseManager';
+import { Analytics } from '@/components/Analytics';
+import { ReceiptManager } from '@/components/ReceiptManager';
+import { Settings } from '@/components/Settings';
 
-type Tab = 'dashboard' | 'sales' | 'inventory';
+type Tab = 'dashboard' | 'sales' | 'inventory' | 'analytics' | 'expenses' | 'receipts' | 'settings';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
   const [products, setProducts] = useLocalStorage<Product[]>('bizboss-products', []);
   const [sales, setSales] = useLocalStorage<Sale[]>('bizboss-sales', []);
+  const [expenses, setExpenses] = useLocalStorage<Expense[]>('bizboss-expenses', []);
 
   const handleProductAdd = (productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>) => {
     const newProduct: Product = {
@@ -54,10 +59,14 @@ const Index = () => {
     setSales([...sales, newSale]);
   };
 
+  const handleExpenseRecord = (expense: Expense) => {
+    setExpenses([...expenses, expense]);
+  };
+
   const renderActiveTab = () => {
     switch (activeTab) {
       case 'dashboard':
-        return <Dashboard products={products} sales={sales} />;
+        return <Dashboard products={products} sales={sales} expenses={expenses} />;
       case 'sales':
         return <SalesForm products={products} onSaleRecord={handleSaleRecord} />;
       case 'inventory':
@@ -69,8 +78,16 @@ const Index = () => {
             onProductDelete={handleProductDelete}
           />
         );
+      case 'expenses':
+        return <ExpenseManager onExpenseAdd={handleExpenseRecord} />;
+      case 'analytics':
+        return <Analytics products={products} sales={sales} expenses={expenses} />;
+      case 'receipts':
+        return <ReceiptManager products={products} />;
+      case 'settings':
+        return <Settings sales={sales} expenses={expenses} products={products} />;
       default:
-        return <Dashboard products={products} sales={sales} />;
+        return <Dashboard products={products} sales={sales} expenses={expenses} />;
     }
   };
 

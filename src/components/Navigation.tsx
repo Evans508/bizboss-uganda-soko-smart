@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { LayoutDashboard, TrendingUp, Package } from "lucide-react";
+import { LayoutDashboard, TrendingUp, Package, BarChart3, Receipt, Settings } from "lucide-react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
-type Tab = 'dashboard' | 'sales' | 'inventory';
+type Tab = 'dashboard' | 'sales' | 'inventory' | 'analytics' | 'expenses' | 'receipts' | 'settings';
 
 interface NavigationProps {
   activeTab: Tab;
@@ -28,6 +28,26 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
       id: 'inventory' as Tab,
       label: t('inventory'),
       icon: Package
+    },
+    {
+      id: 'expenses' as Tab,
+      label: 'Expenses',
+      icon: Package
+    },
+    {
+      id: 'analytics' as Tab,
+      label: 'Analytics',
+      icon: BarChart3
+    },
+    {
+      id: 'receipts' as Tab,
+      label: 'Receipts',
+      icon: Receipt
+    },
+    {
+      id: 'settings' as Tab,
+      label: 'Settings',
+      icon: Settings
     }
   ];
 

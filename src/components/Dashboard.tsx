@@ -7,6 +7,7 @@ import { TrendingUp, AlertTriangle, Plus, Printer, BarChart, Settings, User } fr
 interface DashboardProps {
   products: Product[];
   sales: Sale[];
+  expenses?: any[];
 }
 
 export const Dashboard = ({ products, sales }: DashboardProps) => {

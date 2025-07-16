@@ -19,7 +19,49 @@ export interface Sale {
   profit: number;
   paymentMethod: 'cash' | 'mobile-money' | 'bank-transfer';
   customerPhone?: string;
+  mobileMoneyProvider?: 'MTN' | 'Airtel';
+  mobileMoneyReference?: string;
+  receiptUrl?: string;
   createdAt: Date;
+}
+
+export interface Expense {
+  id: string;
+  category: string;
+  amount: number;
+  paymentMethod: 'cash' | 'mobile-money' | 'bank-transfer';
+  description?: string;
+  mobileMoneyProvider?: 'MTN' | 'Airtel';
+  mobileMoneyReference?: string;
+  createdAt: Date;
+}
+
+export interface BusinessSettings {
+  id: string;
+  businessName: string;
+  logoUrl?: string;
+  currency: string;
+  language: 'en' | 'lg';
+  printerConnected: boolean;
+  printerName?: string;
+}
+
+export interface AnalyticsSummary {
+  period: 'daily' | 'weekly' | 'monthly';
+  totalRevenue: number;
+  totalExpenses: number;
+  netProfit: number;
+  topSellingProduct: string;
+  insights: {
+    english: string;
+    luganda: string;
+  };
+  trends: {
+    revenue: number[];
+    expenses: number[];
+    profit: number[];
+    labels: string[];
+  };
 }
 
 export interface DailySummary {
